@@ -1,0 +1,41 @@
+{
+  "id": "p15_procedural_foundation",
+  "pattern": "p15_procedural",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "How we run the durable release bar.",
+  "transcript": [
+    {"role": "user", "text": "What is the release gate?"},
+    {"role": "assistant", "text": "just foundation. just check is units only."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Durable release bar is just foundation (check plus durable and coding-loop smokes). just check is units only.", "category": "procedural"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p15_just_foundation",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Durable release bar is just foundation (check plus durable and coding-loop smokes). just check is units only.",
+      "category": "procedural",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p15_exact_foundation",
+      "query": "just foundation durable release bar",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p15_just_foundation"]
+    },
+    {
+      "name": "p15_hybrid_release_gate",
+      "query": "What command is the full durable gate versus unit tests?",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "hybrid",
+      "require_vector": true,
+      "embedding_from": "just foundation versus just check release bar",
+      "expect_keys_in_top": ["p15_just_foundation"]
+    }
+  ]
+}

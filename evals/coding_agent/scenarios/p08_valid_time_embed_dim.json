@@ -1,0 +1,54 @@
+{
+  "id": "p08_valid_time_embed_dim",
+  "pattern": "p08_valid_time",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Embed dim 32 hashing then 384 BGE. as_of must see the old dim.",
+  "transcript": [
+    {"role": "user", "text": "What embed_dim is vegapunk.toml on?"},
+    {"role": "assistant", "text": "Now 384 for Ollama BGE-small. Hashing 32 is closed."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "vegapunk.toml embed_dim is 32 for the hashing offline gate.", "category": "semantic"},
+    {"op": "supersede", "prior_id": "p08_dim32", "expected_version": 1, "scope": "org/eval/coding/nomiso", "text": "vegapunk.toml embed_dim is 384 for Ollama qllama/bge-small-en-v1.5. Do not mix with a hashing-32 rocks path.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p08_dim32",
+      "scope": "org/eval/coding/nomiso",
+      "text": "vegapunk.toml embed_dim is 32 for the hashing offline gate.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2025-06-01T00:00:00Z",
+      "valid_until": "2026-08-15T00:00:00Z"
+    },
+    {
+      "key": "p08_dim384",
+      "scope": "org/eval/coding/nomiso",
+      "text": "vegapunk.toml embed_dim is 384 for Ollama qllama/bge-small-en-v1.5. Do not mix with a hashing-32 rocks path.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2026-08-15T00:00:00Z"
+    }
+  ],
+  "probes": [
+    {
+      "name": "p08_as_of_july_dim32",
+      "query": "vegapunk.toml embed_dim hashing",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "temporal",
+      "as_of": "2026-07-01T00:00:00Z",
+      "expect_keys_in_top": ["p08_dim32"],
+      "must_not_include_keys": ["p08_dim384"]
+    },
+    {
+      "name": "p08_as_of_now_dim384",
+      "query": "vegapunk.toml embed_dim Ollama",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "temporal",
+      "as_of": "2026-08-18T00:00:00Z",
+      "expect_keys_in_top": ["p08_dim384"],
+      "must_not_include_keys": ["p08_dim32"]
+    }
+  ]
+}

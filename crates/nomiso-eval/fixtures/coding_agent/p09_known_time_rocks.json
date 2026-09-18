@@ -1,0 +1,51 @@
+{
+  "id": "p09_known_time_rocks",
+  "pattern": "p09_known_time",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "We learned rocks default later than we learned memory-demo. known_as_of mid-point sees only the first belief.",
+  "transcript": [
+    {"role": "assistant", "text": "March: demo endpoint is memory. June: agent default is rocksdb://./.nomiso-data."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Vegapunk demo endpoint is in-process memory (ephemeral).", "category": "semantic"},
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Vegapunk agent default endpoint is rocksdb://./.nomiso-data and survives process exit.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p09_memory_demo",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Vegapunk demo endpoint is in-process memory (ephemeral).",
+      "category": "semantic",
+      "with_embedding": true,
+      "known_at": "2026-03-01T00:00:00Z"
+    },
+    {
+      "key": "p09_rocks_default",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Vegapunk agent default endpoint is rocksdb://./.nomiso-data and survives process exit.",
+      "category": "semantic",
+      "with_embedding": true,
+      "known_at": "2026-06-01T00:00:00Z"
+    }
+  ],
+  "probes": [
+    {
+      "name": "p09_known_as_of_april",
+      "query": "Vegapunk endpoint memory rocksdb",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "temporal",
+      "known_as_of": "2026-04-15T00:00:00Z",
+      "expect_keys_in_top": ["p09_memory_demo"],
+      "must_not_include_keys": ["p09_rocks_default"]
+    },
+    {
+      "name": "p09_known_as_of_july",
+      "query": "Vegapunk agent default rocksdb://./.nomiso-data",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "temporal",
+      "known_as_of": "2026-07-15T00:00:00Z",
+      "expect_keys_in_top": ["p09_rocks_default"]
+    }
+  ]
+}

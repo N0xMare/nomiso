@@ -1,0 +1,31 @@
+{
+  "id": "p18_citation_pack",
+  "pattern": "p18_citation",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Plane scores retrieval of the citable fact. Flywheel helped/harmed is system-lite.",
+  "transcript": [
+    {"role": "assistant", "text": "Cite memory ids from pack.block. Then trace-inject and trace-outcome helped."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "After hard-recall --pack, inject only pack.block and cite memory ids. Then vegapunk trace-inject and trace-outcome on that trace_id.", "category": "procedural"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p18_cite_pack",
+      "scope": "org/eval/coding/nomiso",
+      "text": "After hard-recall --pack, inject only pack.block and cite memory ids. Then vegapunk trace-inject and trace-outcome on that trace_id.",
+      "category": "procedural",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p18_exact_trace_inject",
+      "query": "hard-recall pack.block trace-inject trace-outcome",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p18_cite_pack"]
+    }
+  ]
+}

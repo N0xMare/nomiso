@@ -1,0 +1,40 @@
+[package]
+name = "nomiso-store"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "SurrealDB repository and hybrid queries for Nomiso"
+readme = "README.md"
+
+[features]
+default = ["remote-ws", "embedded-mem"]
+remote-ws = ["surrealdb/protocol-ws", "surrealdb/rustls"]
+remote-http = ["surrealdb/protocol-http"]
+embedded-mem = ["surrealdb/kv-mem"]
+embedded-rocks = ["surrealdb/kv-rocksdb"]
+embedded-surrealkv = ["surrealdb/kv-surrealkv"]
+
+[dependencies]
+nomiso-core = { workspace = true }
+nomiso-schema = { workspace = true }
+surrealdb = { workspace = true }
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+uuid = { workspace = true }
+jiff = { workspace = true }
+futures = { workspace = true }
+blake3 = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+tempfile = { workspace = true }
+pretty_assertions = { workspace = true }

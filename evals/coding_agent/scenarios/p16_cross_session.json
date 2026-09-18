@@ -1,0 +1,31 @@
+{
+  "id": "p16_cross_session",
+  "pattern": "p16_cross_session",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Plane gold is the fact process B must recall. Two-process durability is just smoke-agent-durable.",
+  "transcript": [
+    {"role": "assistant", "text": "Process A encoded a durable fact. Process B hard-recalls from the same rocks path."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Durable agent smoke: process A vegapunk encode, process B vegapunk hard-recall on the same rocksdb:// path. ephemeral must be false.", "category": "procedural"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p16_two_process",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Durable agent smoke: process A vegapunk encode, process B vegapunk hard-recall on the same rocksdb:// path. ephemeral must be false.",
+      "category": "procedural",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p16_exact_two_process",
+      "query": "process A encode process B hard-recall rocksdb ephemeral",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p16_two_process"]
+    }
+  ]
+}

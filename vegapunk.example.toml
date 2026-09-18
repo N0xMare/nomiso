@@ -1,0 +1,21 @@
+# Vegapunk product defaults (copy to ./vegapunk.toml or ~/.config/vegapunk/config.toml)
+# Precedence: CLI flags / env > this file > built-ins
+# See docs/spec/10-interfaces-and-integration.md
+
+endpoint = "rocksdb://./.nomiso-data"
+path_base = "config"
+profile = "coding-agent"
+embed_dim = 32
+default_scope = "org/local/user/dev"
+# soft_inject = false        # reserved Layer 3 dump; Layer 1 standing header is also off
+
+# Demo:     endpoint = "memory"
+# Daemon:   endpoint = "ws://127.0.0.1:8000/rpc"
+# Blobs:    VEGAPUNK_BLOB_ROOT or ./.nomiso-blobs (gitignored)
+# Do not attach CLI + long-lived mcp/serve to the same rocksdb:// at once.
+#
+# HTTP embed (optional; key from env, never this file):
+#   embed_url = "https://api.openai.com/v1"
+#   embed_model = "text-embedding-3-small"
+#   embed_dim = 1536
+#   embed_api_key_env = "VEGAPUNK_EMBED_API_KEY"

@@ -1,0 +1,59 @@
+[package]
+name = "vegapunk-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Vegapunk CLI — opinionated agent memory on Nomiso"
+
+[[bin]]
+name = "vegapunk"
+path = "src/main.rs"
+
+[features]
+default = ["serve", "mcp", "embedded-mem", "embedded-rocks", "embed-http"]
+## Thin HTTP product API (`vegapunk serve`).
+serve = ["dep:axum", "dep:tower-http", "dep:secrecy", "dep:subtle"]
+## Thin product MCP stdio (`vegapunk mcp`).
+mcp = ["dep:rmcp", "dep:schemars"]
+## In-process memory engine (dev / single-process smoke).
+embedded-mem = ["vegapunk/embedded-mem", "nomiso/embedded-mem", "nomiso-store/embedded-mem"]
+## Embedded RocksDB for multi-process durable agents (Surreal kv-rocksdb).
+embedded-rocks = ["vegapunk/embedded-rocks", "nomiso/embedded-rocks", "nomiso-store/embedded-rocks"]
+## OpenAI-compatible HTTP embedder (`nomiso-embed` feature `http`).
+embed-http = ["nomiso-embed/http"]
+## Maintainer-only: Grok/Codex process backends (not product).
+cli-llm = ["vegapunk/cli-llm"]
+
+[dependencies]
+vegapunk = { workspace = true }
+nomiso = { workspace = true }
+nomiso-store = { workspace = true }
+nomiso-embed = { workspace = true }
+clap = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+toml = { workspace = true }
+toon-format = { workspace = true }
+axum = { workspace = true, optional = true }
+tower-http = { workspace = true, optional = true }
+secrecy = { workspace = true, optional = true }
+subtle = { workspace = true, optional = true }
+rmcp = { workspace = true, optional = true }
+schemars = { workspace = true, optional = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+tokio = { workspace = true }
+axum = { workspace = true }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tempfile.workspace = true
+async-trait.workspace = true

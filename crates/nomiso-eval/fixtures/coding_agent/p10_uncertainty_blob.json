@@ -1,0 +1,33 @@
+{
+  "id": "p10_uncertainty_blob",
+  "pattern": "p10_uncertainty",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Conflict on blob store without prior_id → uncertainty, not a winner.",
+  "transcript": [
+    {"role": "user", "text": "One review says rustfs, another says filesystem CAS. Who is right?"},
+    {"role": "assistant", "text": "No trusted prior_id. Store uncertainty. Do not pick a winner."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Unresolved conflict: one review says rustfs, another says filesystem CAS. No trusted prior_id.", "category": "uncertainty"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p10_blob_conflict",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Unresolved conflict: blob backend is claimed as rustfs in one review and FsBlobStore local CAS in another. No trusted prior_id.",
+      "category": "uncertainty",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p10_uncertainty_category",
+      "query": "blob backend rustfs FsBlobStore",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "uncertainty",
+      "category": "uncertainty",
+      "expect_keys_in_top": ["p10_blob_conflict"]
+    }
+  ]
+}

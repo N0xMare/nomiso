@@ -1,0 +1,24 @@
+{
+  "id": "p11_abstain_unknown",
+  "pattern": "p11_abstain",
+  "scope": "org/eval/coding/nobody",
+  "origin": "exemplar",
+  "notes": "Empty unused scope. Never invent a convention.",
+  "transcript": [
+    {"role": "user", "text": "What is the ZQXY_NEVER_INGESTED_TOKEN_99 convention?"},
+    {"role": "assistant", "text": "Abstain. Nothing stored in this scope."}
+  ],
+  "gold_ops": [
+    {"op": "noop", "reason": "no durable fact; unknown token"}
+  ],
+  "gold_memories": [],
+  "probes": [
+    {
+      "name": "p11_abstain_never_ingested",
+      "query": "ZQXY_NEVER_INGESTED_TOKEN_99",
+      "scope": "org/eval/coding/nobody",
+      "tag": "abstain",
+      "expect_abstain": true
+    }
+  ]
+}

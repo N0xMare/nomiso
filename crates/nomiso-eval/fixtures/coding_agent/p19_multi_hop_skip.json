@@ -1,0 +1,29 @@
+{
+  "id": "p19_multi_hop_skip",
+  "pattern": "p19_multi_hop",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Explicit skip until a graph writer exists. Not a store failure.",
+  "transcript": [
+    {"role": "user", "text": "Who owns the crate that failed NOMI_SCOPE_DENIED_42?"}
+  ],
+  "gold_ops": [],
+  "gold_memories": [
+    {
+      "key": "p19_placeholder",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Placeholder: crate ownership of NOMI_SCOPE_DENIED_42 is a multi-hop join (error lesson plus module owner). No graph writer yet.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p19_multi_hop_owner",
+      "query": "who owns the crate that failed NOMI_SCOPE_DENIED_42",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "multi_hop",
+      "skip_if_no_graph": true
+    }
+  ]
+}

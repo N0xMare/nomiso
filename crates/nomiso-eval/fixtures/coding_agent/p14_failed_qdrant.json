@@ -1,0 +1,42 @@
+{
+  "id": "p14_failed_qdrant",
+  "pattern": "p14_failed_approach",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Tried a Qdrant rewrite. Rejected. Do not reopen.",
+  "transcript": [
+    {"role": "user", "text": "What about rewriting the vector path onto Qdrant?"},
+    {"role": "assistant", "text": "Tried and rejected. Stay Surreal. Do not reopen the Qdrant rewrite."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Rejected approach: rewriting Nomiso vectors onto Qdrant. Stay Surreal. Do not reopen the Qdrant rewrite.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p14_no_qdrant",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Rejected approach: rewriting Nomiso vectors onto Qdrant. Stay Surreal. Do not reopen the Qdrant rewrite.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p14_exact_qdrant_reject",
+      "query": "Rejected Qdrant rewrite Nomiso Stay Surreal",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p14_no_qdrant"]
+    },
+    {
+      "name": "p14_paraphrase_rejected_vector_db",
+      "query": "Should we reopen the rejected Qdrant rewrite of Nomiso vectors?",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "paraphrase",
+      "require_vector": true,
+      "embedding_from": "rejected Qdrant rewrite Nomiso vectors Stay Surreal do not reopen",
+      "limit": 8,
+      "expect_keys_in_top": ["p14_no_qdrant"]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "name": "skill_c0_offline_v1",
+  "embedding_dim": 32,
+  "write_cases": [
+    {
+      "name": "parse_valid_put",
+      "scope": "org/eval/skill",
+      "episode": "unused",
+      "ops_json": "[{\"op\":\"put\",\"scope\":\"org/eval/skill\",\"text\":\"Alice prefers TypeScript for agent tooling.\",\"category\":\"semantic\",\"confidence\":0.9}]",
+      "expect_stored": true,
+      "expect_preview_contains": "TypeScript",
+      "recall_query": "TypeScript agent tooling",
+      "recall_must_contain": "TypeScript",
+      "forbid_empty_prior": true
+    },
+    {
+      "name": "parse_noop_preferred",
+      "scope": "org/eval/skill",
+      "episode": "hi",
+      "ops_json": "[{\"op\":\"noop\",\"reason\":\"no durable fact\"}]",
+      "expect_noop_only": true,
+      "forbid_empty_prior": true
+    },
+    {
+      "name": "rule_writer_fact_line",
+      "scope": "org/eval/rule",
+      "episode": "Alice prefers Rust for systems work.",
+      "use_rule_writer": true,
+      "expect_stored": true,
+      "expect_preview_contains": "Rust",
+      "recall_query": "prefers Rust",
+      "recall_must_contain": "Rust"
+    },
+    {
+      "name": "rule_writer_empty",
+      "scope": "org/eval/rule",
+      "episode": "   ",
+      "use_rule_writer": true,
+      "expect_noop_only": true
+    },
+    {
+      "name": "parse_fenced_put",
+      "scope": "org/eval/skill",
+      "episode": "x",
+      "ops_json": "Here:\n```json\n[{\"op\":\"put\",\"scope\":\"org/eval/skill\",\"text\":\"Build failed with NOMI_SCOPE_DENIED_42.\",\"category\":\"episodic\",\"episodic\":true}]\n```\n",
+      "expect_stored": true,
+      "expect_preview_contains": "NOMI_SCOPE_DENIED_42",
+      "recall_query": "NOMI_SCOPE_DENIED_42",
+      "recall_must_contain": "NOMI_SCOPE_DENIED_42"
+    },
+    {
+      "name": "parse_garbage_expect_fail",
+      "scope": "org/eval/skill",
+      "episode": "x",
+      "ops_json": "not json at all",
+      "expect_ops_parse": false
+    },
+    {
+      "name": "fail_closed_cli_writer_prose",
+      "scope": "org/eval/skill",
+      "episode": "she likes cats",
+      "ops_json": "I think you should store that she likes cats.",
+      "use_cli_writer_mock": true,
+      "expect_noop_only": true
+    },
+    {
+      "name": "empty_prior_supersede_rejected",
+      "scope": "org/eval/skill",
+      "episode": "x",
+      "ops_json": "[{\"op\":\"supersede\",\"prior_id\":\"\",\"expected_version\":1,\"scope\":\"org/eval/skill\",\"text\":\"bad\"}]",
+      "forbid_empty_prior": true
+    },
+    {
+      "name": "parse_uncertainty_put",
+      "scope": "org/eval/skill",
+      "episode": "unused",
+      "seed_ops_json": "[{\"op\":\"put\",\"scope\":\"org/eval/skill\",\"text\":\"Alice prefers TypeScript for agent tooling.\",\"category\":\"semantic\",\"confidence\":0.9}]",
+      "ops_json": "[{\"op\":\"put\",\"scope\":\"org/eval/skill\",\"text\":\"Conflict: Alice prefers TypeScript vs Rust; no trusted prior.\",\"category\":\"uncertainty\",\"confidence\":0.5}]",
+      "expect_stored": true,
+      "expect_preview_contains": "TypeScript vs Rust",
+      "recall_query": "Alice prefers TypeScript vs Rust",
+      "recall_must_contain": "TypeScript vs Rust",
+      "expect_list_category": "uncertainty"
+    },
+    {
+      "name": "seeded_supersede_replaces_text",
+      "scope": "org/eval/skill",
+      "episode": "unused",
+      "seed_ops_json": "[{\"op\":\"put\",\"scope\":\"org/eval/skill\",\"text\":\"Alice prefers TypeScript for agent tooling.\",\"category\":\"semantic\",\"confidence\":0.9}]",
+      "ops_json": "[{\"op\":\"supersede\",\"prior_id\":\"$seed_id\",\"expected_version\":1,\"scope\":\"org/eval/skill\",\"text\":\"Alice prefers Rust for agent tooling.\",\"category\":\"semantic\"}]",
+      "expect_stored": true,
+      "expect_preview_contains": "prefers Rust",
+      "recall_query": "prefers Rust agent tooling",
+      "recall_must_contain": "prefers Rust",
+      "recall_must_not_contain": "TypeScript"
+    }
+  ],
+  "hard_recall_cases": [
+    {
+      "name": "multipass_error_code",
+      "scope": "org/eval/hr",
+      "memories": [
+        "Build failed with error NOMI_SCOPE_DENIED_42 on project foobar.",
+        "Alice prefers TypeScript for agent tooling."
+      ],
+      "query": "What is NOMI_SCOPE_DENIED_42 about?",
+      "expect_contains": "NOMI_SCOPE_DENIED_42",
+      "expect_multipass": true
+    },
+    {
+      "name": "pack_inject_outcome_loop",
+      "scope": "org/eval/fly",
+      "memories": ["Alice prefers TypeScript for agent tooling."],
+      "query": "TypeScript agent tooling",
+      "expect_contains": "TypeScript",
+      "expect_inject_loop": true
+    }
+  ]
+}

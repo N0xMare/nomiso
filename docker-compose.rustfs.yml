@@ -1,0 +1,31 @@
+# Local self-host object store for Nomiso evidence plane (Phase 3b).
+# Usage:
+#   docker compose -f docker-compose.rustfs.yml up -d
+#   # S3 endpoint: http://127.0.0.1:9000  console: http://127.0.0.1:9001
+#   # default creds: rustfsadmin / rustfsadmin
+#
+# Nomiso config (conceptual):
+#   [blob]
+#   backend = "s3"
+#   endpoint = "http://127.0.0.1:9000"
+#   bucket = "nomiso"
+#   access_key = "rustfsadmin"
+#   secret_key = "rustfsadmin"
+#
+# Dev without Docker: use FsBlobStore under ./.nomiso/blobs (no compose needed).
+
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - rustfs-data:/data
+      - rustfs-logs:/logs
+    # Ensure mounted paths are writable by container user 10001 when using bind mounts.
+    restart: unless-stopped
+
+volumes:
+  rustfs-data:
+  rustfs-logs:

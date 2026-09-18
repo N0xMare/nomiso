@@ -1,0 +1,31 @@
+[package]
+name = "nomiso-service"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Application service facade over Nomiso store"
+readme = "README.md"
+
+[dependencies]
+nomiso-core = { workspace = true }
+# Feature engines selected by consumers (nomiso facade / bins), not forced here.
+nomiso-store = { workspace = true }
+tokio = { workspace = true }
+tokio-util = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+uuid = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+pretty_assertions = { workspace = true }
+# Tests need kv-mem engine.
+nomiso-store = { workspace = true, features = ["embedded-mem"] }

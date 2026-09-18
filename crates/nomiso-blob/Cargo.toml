@@ -1,0 +1,29 @@
+[package]
+name = "nomiso-blob"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Content-addressed blob store trait (fs + S3-compatible) for Nomiso evidence"
+readme = "README.md"
+
+[dependencies]
+async-trait = { workspace = true }
+blake3 = "1"
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["fs", "io-util"] }
+bytes = { workspace = true }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+serde = { workspace = true }
+hmac = "0.12"
+sha2 = "0.10"
+hex = "0.4"
+jiff = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+tempfile = { workspace = true }

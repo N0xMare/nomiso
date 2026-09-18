@@ -1,0 +1,113 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/nomiso-core",
+  "crates/nomiso-schema",
+  "crates/nomiso-store",
+  "crates/nomiso-service",
+  "crates/nomiso-http",
+  "crates/nomiso-mcp",
+  "crates/nomiso-embed",
+  "crates/nomiso-eval",
+  "crates/nomiso-blob",
+  "crates/nomiso",
+  "crates/nomiso-memory",
+  "crates/vegapunk",
+  "bins/nomisod",
+  "bins/vegapunk",
+  "examples/tact-on-nomiso",
+]
+default-members = ["crates/nomiso", "crates/vegapunk", "bins/nomisod", "bins/vegapunk"]
+
+[workspace.package]
+version = "0.2.0"
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/harnussy/nomiso"
+homepage = "https://github.com/harnussy/nomiso"
+# Verified floor: dep set needs ≥1.94 (fastnum); 1.97 is the oldest tested.
+rust-version = "1.97"
+authors = ["Nomiso Contributors"]
+keywords = ["agent-memory", "memory", "llm", "mcp", "surrealdb"]
+categories = ["database", "data-structures"]
+
+[workspace.dependencies]
+# async / runtime
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "io-util", "signal"] }
+tokio-util = "0.7"
+futures = "0.3"
+async-trait = "0.1"
+
+# serde / data
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_with = "3"
+blake3 = "1"
+
+# time / ids
+jiff = { version = "0.2", features = ["serde"] }
+uuid = { version = "1", features = ["v7", "serde"] }
+
+# errors
+thiserror = "2"
+anyhow = "1"
+
+# observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# validation
+garde = { version = "0.22", features = ["derive", "serde"] }
+
+# SurrealDB
+surrealdb = { version = "3.2", default-features = false }
+
+# HTTP
+axum = { version = "0.8", features = ["macros"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["trace", "cors", "limit", "timeout"] }
+http = "1"
+hyper = "1"
+
+# OpenAPI
+utoipa = { version = "5", features = ["uuid"] }
+utoipa-axum = "0.2"
+utoipa-swagger-ui = "9"
+
+# MCP
+rmcp = { version = "3", default-features = false, features = ["server", "macros", "transport-io"] }
+schemars = "1"
+
+# config / CLI
+figment = { version = "0.10", features = ["toml", "env"] }
+clap = { version = "4", features = ["derive", "env"] }
+
+# security
+secrecy = { version = "0.10", features = ["serde"] }
+subtle = "2"
+bytes = "1"
+
+# schema embed
+include_dir = "0.7"
+
+# workspace path deps
+nomiso-core = { path = "crates/nomiso-core", version = "0.2.0" }
+nomiso-schema = { path = "crates/nomiso-schema", version = "0.2.0" }
+nomiso-store = { path = "crates/nomiso-store", version = "0.2.0", default-features = false }
+nomiso-service = { path = "crates/nomiso-service", version = "0.2.0" }
+nomiso-http = { path = "crates/nomiso-http", version = "0.2.0" }
+nomiso-mcp = { path = "crates/nomiso-mcp", version = "0.2.0" }
+nomiso-embed = { path = "crates/nomiso-embed", version = "0.2.0" }
+nomiso-eval = { path = "crates/nomiso-eval", version = "0.2.0" }
+nomiso-blob = { path = "crates/nomiso-blob", version = "0.2.0" }
+nomiso = { path = "crates/nomiso", version = "0.2.0" }
+nomiso-memory = { path = "crates/nomiso-memory", version = "0.2.0" }
+vegapunk = { path = "crates/vegapunk", version = "0.2.0" }
+
+# test
+pretty_assertions = "1"
+tempfile = "3"
+
+# CLI product
+toml = "0.8"
+toon-format = { version = "0.5", default-features = false }

@@ -1,0 +1,34 @@
+[package]
+name = "tact-on-nomiso"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Tact-shaped global memory architecture implemented on Nomiso"
+publish = false
+
+[[bin]]
+name = "tact-on-nomiso"
+path = "src/main.rs"
+
+[features]
+default = ["embedded-mem"]
+embedded-mem = ["nomiso/embedded-mem"]
+## Surreal embedded Rocks for multi-process Tact CLI (`--endpoint rocksdb://./.tact-data`).
+embedded-rocks = ["nomiso/embedded-rocks"]
+
+[dependencies]
+nomiso = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+clap = { workspace = true }
+anyhow = { workspace = true }
+jiff = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+pretty_assertions = { workspace = true }

@@ -1,0 +1,29 @@
+[package]
+name = "nomisod"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Nomiso daemon: HTTP + MCP over the memory plane"
+readme = "README.md"
+
+[[bin]]
+name = "nomisod"
+path = "src/main.rs"
+
+[dependencies]
+nomiso = { workspace = true, features = ["full"] }
+clap = { workspace = true }
+figment = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }
+secrecy = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+axum = { workspace = true }

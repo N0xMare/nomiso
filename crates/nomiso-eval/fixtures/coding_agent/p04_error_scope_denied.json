@@ -1,0 +1,41 @@
+{
+  "id": "p04_error_scope_denied",
+  "pattern": "p04_error_lesson",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Error lesson: NOMI_SCOPE_DENIED_42 from empty --scope on apply-ops.",
+  "transcript": [
+    {"role": "tool", "text": "error NOMI_SCOPE_DENIED_42 applying ops without scope"},
+    {"role": "assistant", "text": "Pin VEGAPUNK_SCOPE or --scope. Do not invent a scope from the query text."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Build failed with NOMI_SCOPE_DENIED_42 because apply-ops ran with an empty scope. Fix: pass --scope or VEGAPUNK_SCOPE. Do not infer scope from the query.", "category": "episodic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p04_scope_denied",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Build failed with NOMI_SCOPE_DENIED_42 because apply-ops ran with an empty scope. Fix: pass --scope or VEGAPUNK_SCOPE. Do not infer scope from the query.",
+      "category": "episodic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p04_exact_error_code",
+      "query": "NOMI_SCOPE_DENIED_42",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p04_scope_denied"]
+    },
+    {
+      "name": "p04_paraphrase_empty_scope",
+      "query": "What happens if vegapunk apply-ops is missing a scope pin?",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "paraphrase",
+      "require_vector": true,
+      "embedding_from": "apply-ops empty scope NOMI_SCOPE_DENIED_42 VEGAPUNK_SCOPE",
+      "expect_keys_in_top": ["p04_scope_denied"]
+    }
+  ]
+}

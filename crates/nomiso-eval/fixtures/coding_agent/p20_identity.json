@@ -1,0 +1,33 @@
+{
+  "id": "p20_identity",
+  "pattern": "p20_identity",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Light identity: this agent, this repo.",
+  "transcript": [
+    {"role": "user", "text": "Who are you in this repo?"},
+    {"role": "assistant", "text": "Coding agent on Nomiso/Vegapunk in the nomiso repo. Embed dim must match the store."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "This coding agent uses Vegapunk on Nomiso for the nomiso repository. Embedding dimension must match the Surreal HNSW store.", "category": "identity"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p20_agent_repo",
+      "scope": "org/eval/coding/nomiso",
+      "text": "This coding agent uses Vegapunk on Nomiso for the nomiso repository. Embedding dimension must match the Surreal HNSW store.",
+      "category": "identity",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p20_exact_identity",
+      "query": "Vegapunk Nomiso nomiso repository embedding dimension",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "category": "identity",
+      "expect_keys_in_top": ["p20_agent_repo"]
+    }
+  ]
+}

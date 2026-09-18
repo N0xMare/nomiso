@@ -1,0 +1,32 @@
+{
+  "id": "p04b_error_rocks_lock",
+  "pattern": "p04_error_lesson",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "generated",
+  "notes": "Second error lesson: Rocks LOCK file is not a busy store.",
+  "transcript": [
+    {"role": "tool", "text": "snapshot refused: .nomiso-data/LOCK exists"},
+    {"role": "assistant", "text": "Do not treat Rocks LOCK as a live writer. Only refuse when a vegapunk process holds the store."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Lesson: scripts/nomiso-snapshot.sh must not treat the Rocks LOCK file as a busy writer. Refuse only when a vegapunk or nomisod process still holds rocksdb://.", "category": "episodic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p04b_rocks_lock",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Lesson: scripts/nomiso-snapshot.sh must not treat the Rocks LOCK file as a busy writer. Refuse only when a vegapunk or nomisod process still holds rocksdb://.",
+      "category": "episodic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p04b_exact_lock_file",
+      "query": "nomiso-snapshot Rocks LOCK file vegapunk",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p04b_rocks_lock"]
+    }
+  ]
+}

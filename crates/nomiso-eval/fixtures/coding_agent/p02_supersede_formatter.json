@@ -1,0 +1,55 @@
+{
+  "id": "p02_supersede_formatter",
+  "pattern": "p02_supersede",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Supersede rustfmt → rustfmt + clippy-as-gate. Plane gold is closed v1 + open v2.",
+  "transcript": [
+    {"role": "user", "text": "We only rustfmt, right?"},
+    {"role": "assistant", "text": "Decision update: rustfmt plus clippy -D warnings is the gate. rustfmt-only is closed."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Format gate is rustfmt only on pull requests.", "category": "semantic"},
+    {"op": "supersede", "prior_id": "p02_fmt_v1", "expected_version": 1, "scope": "org/eval/coding/nomiso", "text": "Format gate is rustfmt plus cargo clippy -D warnings. rustfmt-only is no longer sufficient.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p02_fmt_v1",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Format gate is rustfmt only on pull requests.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2025-01-01T00:00:00Z",
+      "valid_until": "2026-04-01T00:00:00Z",
+      "replace_group": "fmt_gate"
+    },
+    {
+      "key": "p02_fmt_v2",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Format gate is rustfmt plus cargo clippy -D warnings. rustfmt-only is no longer sufficient.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2026-04-01T00:00:00Z",
+      "replace_group": "fmt_gate"
+    }
+  ],
+  "probes": [
+    {
+      "name": "p02_ku_current_fmt",
+      "query": "format gate rustfmt clippy",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "knowledge_update",
+      "expect_keys_in_top": ["p02_fmt_v2"],
+      "must_not_include_keys": ["p02_fmt_v1"]
+    },
+    {
+      "name": "p02_as_of_before_clippy",
+      "query": "format gate rustfmt",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "temporal",
+      "as_of": "2026-02-01T00:00:00Z",
+      "expect_keys_in_top": ["p02_fmt_v1"],
+      "must_not_include_keys": ["p02_fmt_v2"]
+    }
+  ]
+}

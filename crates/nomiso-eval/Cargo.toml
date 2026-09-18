@@ -1,0 +1,36 @@
+[package]
+name = "nomiso-eval"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Deterministic fixture eval harness for the Nomiso memory plane"
+readme = "README.md"
+
+[features]
+default = []
+## Optional labeled HTTP embed probe (not part of just check).
+http = ["nomiso-embed/http"]
+
+[dependencies]
+nomiso-core = { workspace = true }
+nomiso-service = { workspace = true }
+nomiso-store = { workspace = true, features = ["embedded-mem", "remote-ws"] }
+nomiso-embed = { workspace = true }
+nomiso-memory = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["process"] }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+include_dir.workspace = true
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }
+tokio = { workspace = true }

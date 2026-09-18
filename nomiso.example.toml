@@ -1,0 +1,31 @@
+# Example nomisod configuration. Copy to nomiso.toml and adjust.
+
+[surreal]
+# WARNING: "memory" / mem:// is ephemeral — process exit loses all data.
+endpoint = "memory"                 # or ws://127.0.0.1:8000 for durable
+namespace = "nomiso"
+database = "memory"
+# username = "root"
+# password = "root"
+
+[search]
+default_limit = 8
+max_search_limit = 32
+rrf_k = 60
+enable_graph_enrich = true
+candidate_limit = 32
+hnsw_ef = 100
+
+[embedding]
+dimension = 1536
+# hashing = true   # offline HashingEmbedder for demo auto-embed (not production quality)
+
+[limits]
+max_content_bytes = 8192
+max_attrs_bytes = 4096
+
+[daemon]
+bind = "127.0.0.1:9090"
+# api_key = "change-me"
+mcp_stdio = false
+http = true

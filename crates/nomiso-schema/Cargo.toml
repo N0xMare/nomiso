@@ -1,0 +1,21 @@
+[package]
+name = "nomiso-schema"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Embedded SurrealQL migrations for Nomiso"
+readme = "README.md"
+
+[dependencies]
+nomiso-core = { workspace = true }
+thiserror = { workspace = true }
+include_dir = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions = { workspace = true }

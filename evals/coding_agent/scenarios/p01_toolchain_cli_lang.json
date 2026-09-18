@@ -1,0 +1,41 @@
+{
+  "id": "p01_toolchain_cli_lang",
+  "pattern": "p01_toolchain",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Toolchain preference: vegapunk-cli language.",
+  "transcript": [
+    {"role": "user", "text": "What language should vegapunk-cli stay in?"},
+    {"role": "assistant", "text": "Keep vegapunk-cli in Rust. Do not rewrite the AXI CLI in TypeScript."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "vegapunk-cli is implemented in Rust. Do not rewrite the AXI CLI in TypeScript.", "category": "semantic", "confidence": 0.95}
+  ],
+  "gold_memories": [
+    {
+      "key": "p01_rust_cli",
+      "scope": "org/eval/coding/nomiso",
+      "text": "vegapunk-cli is implemented in Rust. Do not rewrite the AXI CLI in TypeScript.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p01_exact_rust_cli",
+      "query": "vegapunk-cli Rust AXI",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p01_rust_cli"]
+    },
+    {
+      "name": "p01_paraphrase_cli_lang",
+      "query": "What language is the agent CLI binary written in?",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "paraphrase",
+      "require_vector": true,
+      "embedding_from": "language used to implement vegapunk-cli AXI binary",
+      "expect_keys_in_top": ["p01_rust_cli"]
+    }
+  ]
+}

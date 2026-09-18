@@ -1,0 +1,31 @@
+/target
+**/*.rs.bk
+.DS_Store
+*.swp
+.idea/
+.vscode/
+nomiso.toml
+.env
+*.db
+/data
+
+# Embedded Surreal Rocks data dirs (local durable agent stores)
+.nomiso-data/
+.nomiso-blobs/
+.tact-data/
+nomiso-snapshot.tar.gz
+nomiso-snapshot-*.tar.gz
+
+# Local-only notes / prompts / reviews (never commit)
+/docs/local/
+/docs/internal/
+
+# Live host extract dumps (WriterOp[] per scenario)
+/evals/coding_agent/live/
+# System-track host dumps (gitignored)
+/evals/coding_agent/system/
+/evals/coding_agent/system-http/
+
+# Python SDK / harness bytecode
+__pycache__/
+*.pyc

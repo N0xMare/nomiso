@@ -1,0 +1,44 @@
+{
+  "id": "p08b_valid_time_writer",
+  "pattern": "p08_valid_time",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "generated",
+  "notes": "Default writer rule → prefer apply-ops. as_of sees the old default.",
+  "transcript": [
+    {"role": "assistant", "text": "Writer default changed from RuleWriter encode to host apply-ops."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Default Vegapunk writer is RuleWriter encode for demos.", "category": "semantic"},
+    {"op": "supersede", "prior_id": "p08b_rule_writer", "expected_version": 1, "scope": "org/eval/coding/nomiso", "text": "Writer default changed from RuleWriter encode to host apply-ops.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p08b_rule_writer",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Default Vegapunk writer is RuleWriter encode for demos.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2025-08-01T00:00:00Z",
+      "valid_until": "2026-03-01T00:00:00Z"
+    },
+    {
+      "key": "p08b_apply_ops",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Canonical agent write path is host extract then vegapunk apply-ops. RuleWriter is demo-only.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2026-03-01T00:00:00Z"
+    }
+  ],
+  "probes": [
+    {
+      "name": "p08b_as_of_rule_writer",
+      "query": "Default Vegapunk writer RuleWriter",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "temporal",
+      "as_of": "2026-01-15T00:00:00Z",
+      "expect_keys_in_top": ["p08b_rule_writer"],
+      "must_not_include_keys": ["p08b_apply_ops"]
+    }
+  ]
+}

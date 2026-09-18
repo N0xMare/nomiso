@@ -1,0 +1,32 @@
+[package]
+name = "nomiso-embed"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Pluggable embedders for Nomiso (hashing + optional HTTP)"
+readme = "README.md"
+
+[features]
+default = []
+http = ["dep:reqwest", "dep:serde", "dep:serde_json", "dep:tokio", "dep:tokio-util"]
+
+[dependencies]
+nomiso-core = { workspace = true }
+nomiso-service = { workspace = true }
+tokio-util = { workspace = true, optional = true }
+tokio = { workspace = true, optional = true }
+async-trait = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"], optional = true }
+serde = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+pretty_assertions = { workspace = true }

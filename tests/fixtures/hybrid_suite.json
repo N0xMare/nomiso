@@ -1,0 +1,97 @@
+{
+  "name": "hybrid_plane_v1",
+  "embedding_dim": 32,
+  "source_of_truth": "crates/nomiso-eval/src/lib.rs::hybrid_suite()",
+  "description": "Plane-level hybrid fixture suite. Executable definition lives in nomiso-eval (Rust). Includes BM25 df < N/2 vs ≥ N/2 score_kind honesty probes plus hybrid fusion.",
+  "memories": [
+    {
+      "key": "ts_pref",
+      "scope": "org/eval/user/alice",
+      "text": "Alice prefers TypeScript for agent tooling and MCP servers.",
+      "with_embedding": true
+    },
+    {
+      "key": "rust_pref",
+      "scope": "org/eval/user/alice",
+      "text": "Alice also enjoys writing high-performance Rust systems code.",
+      "with_embedding": true
+    },
+    {
+      "key": "error_code",
+      "scope": "org/eval/user/alice",
+      "text": "Build failed with error NOMI_SCOPE_DENIED_42 on project foobar.",
+      "with_embedding": true
+    },
+    {
+      "key": "other_project",
+      "scope": "org/eval/user/bob",
+      "text": "Alice prefers TypeScript for agent tooling and MCP servers.",
+      "with_embedding": true
+    },
+    {
+      "key": "pad_a",
+      "scope": "org/eval/user/alice",
+      "text": "commonword pad document alpha about nothing special.",
+      "with_embedding": false
+    },
+    {
+      "key": "pad_b",
+      "scope": "org/eval/user/alice",
+      "text": "commonword pad document beta about nothing special.",
+      "with_embedding": false
+    },
+    {
+      "key": "pad_c",
+      "scope": "org/eval/user/alice",
+      "text": "commonword pad document gamma about nothing special.",
+      "with_embedding": false
+    },
+    {
+      "key": "pad_d",
+      "scope": "org/eval/user/alice",
+      "text": "commonword pad document delta about nothing special rarezxq9.",
+      "with_embedding": false
+    }
+  ],
+  "probes": [
+    {
+      "name": "bm25_exact_error_code",
+      "query": "NOMI_SCOPE_DENIED_42",
+      "expect_keys_in_top": ["error_code"]
+    },
+    {
+      "name": "bm25_typescript_keyword",
+      "query": "TypeScript MCP",
+      "expect_keys_in_top": ["ts_pref"]
+    },
+    {
+      "name": "bm25_df_low_rare_engine",
+      "query": "rarezxq9",
+      "expect_keys_in_top": ["pad_d"],
+      "notes": "df < N/2: expect ScoreKind::Engine genuine BM25"
+    },
+    {
+      "name": "bm25_df_high_common_labeled",
+      "query": "commonword",
+      "expect_keys_in_top": ["pad_a"],
+      "notes": "df ≥ N/2: scores labeled Engine or RankFallback, never unlabeled rank-decay as Engine"
+    },
+    {
+      "name": "vector_paraphrase_typescript",
+      "embedding_from": "She likes using TypeScript when building agent tools",
+      "expect_keys_in_top": ["ts_pref"]
+    },
+    {
+      "name": "hybrid_mixed",
+      "query": "TypeScript agent tooling",
+      "embedding_from": "TypeScript agent tooling preference",
+      "expect_keys_in_top": ["ts_pref"]
+    },
+    {
+      "name": "scope_isolation_no_bob_leak",
+      "query": "TypeScript MCP",
+      "expect_keys_in_top": ["ts_pref"],
+      "must_not_include_keys": ["other_project"]
+    }
+  ]
+}

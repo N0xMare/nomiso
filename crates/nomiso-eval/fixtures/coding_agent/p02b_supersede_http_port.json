@@ -1,0 +1,46 @@
+{
+  "id": "p02b_supersede_http_port",
+  "pattern": "p02_supersede",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "generated",
+  "notes": "Second instantiation: serve bind 9191 → 9292.",
+  "transcript": [
+    {"role": "user", "text": "vegapunk serve still on 9191?"},
+    {"role": "assistant", "text": "Updated: default bind is 127.0.0.1:9292. 9191 is closed."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "vegapunk serve default bind is 127.0.0.1:9191.", "category": "semantic"},
+    {"op": "supersede", "prior_id": "p02b_port_9191", "expected_version": 1, "scope": "org/eval/coding/nomiso", "text": "vegapunk serve default bind is 127.0.0.1:9292. Port 9191 is no longer the default.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p02b_port_9191",
+      "scope": "org/eval/coding/nomiso",
+      "text": "vegapunk serve default bind is 127.0.0.1:9191.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2025-11-01T00:00:00Z",
+      "valid_until": "2026-05-01T00:00:00Z",
+      "replace_group": "serve_bind"
+    },
+    {
+      "key": "p02b_port_9292",
+      "scope": "org/eval/coding/nomiso",
+      "text": "vegapunk serve default bind is 127.0.0.1:9292. Port 9191 is no longer the default.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2026-05-01T00:00:00Z",
+      "replace_group": "serve_bind"
+    }
+  ],
+  "probes": [
+    {
+      "name": "p02b_ku_current_port",
+      "query": "vegapunk serve bind 9292",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "knowledge_update",
+      "expect_keys_in_top": ["p02b_port_9292"],
+      "must_not_include_keys": ["p02b_port_9191"]
+    }
+  ]
+}

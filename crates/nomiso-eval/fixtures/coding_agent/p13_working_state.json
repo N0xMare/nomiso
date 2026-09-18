@@ -1,0 +1,32 @@
+{
+  "id": "p13_working_state",
+  "pattern": "p13_working_state",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Currently editing connect.rs is WM. Durable fact is the embed_url recipe. WM must not be a semantic row.",
+  "transcript": [
+    {"role": "assistant", "text": "Currently editing bins/vegapunk/src/connect.rs. Durable: HTTP embed uses VEGAPUNK_EMBED_API_KEY, never the toml file."}
+  ],
+  "gold_ops": [
+    {"op": "noop", "reason": "currently editing connect.rs is working-state, not a semantic put"},
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "HTTP embed API key comes from VEGAPUNK_EMBED_API_KEY (or embed_api_key_env). Never put the key in vegapunk.toml.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p13_embed_key_env",
+      "scope": "org/eval/coding/nomiso",
+      "text": "HTTP embed API key comes from VEGAPUNK_EMBED_API_KEY (or embed_api_key_env). Never put the key in vegapunk.toml.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p13_durable_key_env",
+      "query": "VEGAPUNK_EMBED_API_KEY vegapunk.toml",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p13_embed_key_env"]
+    }
+  ]
+}

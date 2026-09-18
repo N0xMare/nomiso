@@ -1,0 +1,22 @@
+# Vegapunk product defaults (project-local or ~/.config/vegapunk/config.toml)
+# Precedence: CLI flags / env > this file > built-ins
+# Docs: docs/spec/10-interfaces-and-integration.md
+#
+# Default is local durable Surreal (embedded Rocks). Data dir is gitignored.
+# CAS bytes: VEGAPUNK_BLOB_ROOT or ./.nomiso-blobs (also gitignored).
+# Do not run CLI + long-lived mcp/serve against the same rocksdb:// at once.
+# Demo escape (ephemeral per process):  endpoint = "memory"
+# Shared daemon:                       endpoint = "ws://127.0.0.1:8000/rpc"
+
+endpoint = "rocksdb://./.nomiso-data"
+profile = "coding-agent"
+embed_dim = 384
+default_scope = "org/local/user/dev"
+# soft_inject is reserved Layer 3 (capped dump). Layer 1 standing header is also off.
+# Product never auto-injects turn facts (Layer 2 is pack.block after hard-recall).
+# soft_inject = false
+
+# Local BGE-small (Hindsight-family control). Do not mix with hashing dim 32.
+embed_url = "http://127.0.0.1:11434/v1"
+embed_model = "qllama/bge-small-en-v1.5"
+embed_api_key_env = "VEGAPUNK_EMBED_API_KEY"

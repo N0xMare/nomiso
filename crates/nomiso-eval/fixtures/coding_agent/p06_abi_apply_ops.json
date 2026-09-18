@@ -1,0 +1,32 @@
+{
+  "id": "p06_abi_apply_ops",
+  "pattern": "p06_abi_contract",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "apply_ops is prefix-preserving; apply_ops_atomic is best-effort rollback.",
+  "transcript": [
+    {"role": "user", "text": "Is apply-ops transactional?"},
+    {"role": "assistant", "text": "CLI apply-ops is prefix-preserving. apply_ops_atomic only soft-forgets a Stored prefix. Not H4 ACID."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "vegapunk apply-ops is prefix-preserving: later Err leaves earlier Stored rows. apply_ops_atomic best-effort soft-forgets the Stored prefix. It is not H4 multi-op ACID.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p06_apply_ops_prefix",
+      "scope": "org/eval/coding/nomiso",
+      "text": "vegapunk apply-ops is prefix-preserving: later Err leaves earlier Stored rows. apply_ops_atomic best-effort soft-forgets the Stored prefix. It is not H4 multi-op ACID.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p06_exact_prefix",
+      "query": "apply-ops prefix-preserving apply_ops_atomic H4",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p06_apply_ops_prefix"]
+    }
+  ]
+}

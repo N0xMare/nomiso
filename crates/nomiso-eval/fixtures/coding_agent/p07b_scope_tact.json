@@ -1,0 +1,31 @@
+{
+  "id": "p07b_scope_tact",
+  "pattern": "p07_scope_isolation",
+  "scope": "org/eval/coding/tact",
+  "origin": "generated",
+  "notes": "Tact-on-Nomiso secrets stay out of the nomiso coding scope.",
+  "transcript": [
+    {"role": "assistant", "text": "Tact root-only mutate is org/eval/coding/tact. Do not leak into nomiso."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/tact", "text": "Tact root-only mutate is org/eval/coding/tact. Do not leak into nomiso.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p07b_tact_secrets",
+      "scope": "org/eval/coding/tact",
+      "text": "Tact-on-Nomiso TACT_ROOT_ONLY_SLOT secrets live under org/eval/coding/tact.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p07b_no_tact_leak",
+      "query": "TACT_ROOT_ONLY_SLOT",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "scope_isolation",
+      "must_not_include_keys": ["p07b_tact_secrets"]
+    }
+  ]
+}

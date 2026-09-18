@@ -1,0 +1,41 @@
+{
+  "id": "p05b_module_blob",
+  "pattern": "p05_module_locality",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "generated",
+  "notes": "CAS bytes live in FsBlobStore, not Surreal documents.",
+  "transcript": [
+    {"role": "user", "text": "Can we store log bytes in the memory row?"},
+    {"role": "assistant", "text": "No. Bytes go to FsBlobStore. Surreal stores blake3 plus location only."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Artifact bytes live in FsBlobStore (.nomiso-blobs) via tmp plus sync_all plus rename. Surreal stores only blake3 and location.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p05b_cas_fs",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Artifact bytes live in FsBlobStore (.nomiso-blobs) via tmp plus sync_all plus rename. Surreal stores only blake3 and location.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p05b_exact_cas",
+      "query": "FsBlobStore .nomiso-blobs blake3 location",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p05b_cas_fs"]
+    },
+    {
+      "name": "p05b_hybrid_cas",
+      "query": "Where do artifact bytes live versus blake3 metadata?",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "hybrid",
+      "require_vector": true,
+      "embedding_from": "FsBlobStore .nomiso-blobs blake3 location not Surreal bytes",
+      "expect_keys_in_top": ["p05b_cas_fs"]
+    }
+  ]
+}

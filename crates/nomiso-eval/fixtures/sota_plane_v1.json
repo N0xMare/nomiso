@@ -1,0 +1,133 @@
+{
+  "name": "sota_plane_v1",
+  "embedding_dim": 32,
+  "track": "plane",
+  "embedder": "hashing",
+  "ingest_mode": "gold_put",
+  "source_of_truth": "crates/nomiso-eval/src/compare.rs::channel_suite",
+  "description": "Tagged plane suite. hashing ≠ Hindsight semantics. multi_hop is an explicit skip.",
+  "memories": [
+    {
+      "key": "error_code",
+      "scope": "org/eval/user/alice",
+      "text": "Build failed with error NOMI_SCOPE_DENIED_42 on project foobar.",
+      "category": "episodic",
+      "with_embedding": true
+    },
+    {
+      "key": "ts_pref",
+      "scope": "org/eval/user/alice",
+      "text": "Alice prefers TypeScript for agent tooling and MCP servers.",
+      "category": "semantic",
+      "with_embedding": true
+    },
+    {
+      "key": "pref_v1",
+      "scope": "org/eval/user/alice",
+      "text": "Alice uses Python as her default language.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2024-01-01T00:00:00Z",
+      "valid_until": "2025-06-01T00:00:00Z"
+    },
+    {
+      "key": "pref_v2",
+      "scope": "org/eval/user/alice",
+      "text": "Alice uses Rust as her default language.",
+      "category": "semantic",
+      "with_embedding": true,
+      "valid_from": "2025-06-01T00:00:00Z"
+    },
+    {
+      "key": "other_project",
+      "scope": "org/eval/user/bob",
+      "text": "Alice prefers TypeScript for agent tooling and MCP servers.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "exact_error_code",
+      "query": "NOMI_SCOPE_DENIED_42",
+      "scope": "org/eval/user/alice",
+      "limit": 5,
+      "tag": "exact",
+      "expect_keys_in_top": ["error_code"]
+    },
+    {
+      "name": "paraphrase_typescript",
+      "query": "",
+      "scope": "org/eval/user/alice",
+      "limit": 3,
+      "tag": "paraphrase",
+      "embedding_from": "She likes using TypeScript when building agent tools",
+      "require_vector": true,
+      "expect_keys_in_top": ["ts_pref"]
+    },
+    {
+      "name": "hybrid_ts_pref",
+      "query": "TypeScript MCP",
+      "scope": "org/eval/user/alice",
+      "limit": 5,
+      "tag": "hybrid",
+      "embedding_from": "TypeScript agent tooling preference",
+      "require_vector": true,
+      "expect_keys_in_top": ["ts_pref"]
+    },
+    {
+      "name": "temporal_before_switch",
+      "query": "default language",
+      "scope": "org/eval/user/alice",
+      "limit": 5,
+      "tag": "temporal",
+      "as_of": "2025-01-15T00:00:00Z",
+      "expect_keys_in_top": ["pref_v1"],
+      "must_not_include_keys": ["pref_v2"]
+    },
+    {
+      "name": "temporal_after_switch",
+      "query": "default language",
+      "scope": "org/eval/user/alice",
+      "limit": 5,
+      "tag": "temporal",
+      "as_of": "2026-01-15T00:00:00Z",
+      "expect_keys_in_top": ["pref_v2"],
+      "must_not_include_keys": ["pref_v1"]
+    },
+    {
+      "name": "knowledge_update_current",
+      "query": "default language",
+      "scope": "org/eval/user/alice",
+      "limit": 5,
+      "tag": "knowledge_update",
+      "expect_keys_in_top": ["pref_v2"],
+      "must_not_include_keys": ["pref_v1"]
+    },
+    {
+      "name": "scope_isolation",
+      "query": "TypeScript MCP",
+      "scope": "org/eval/user/alice",
+      "limit": 10,
+      "tag": "scope_isolation",
+      "expect_keys_in_top": ["ts_pref"],
+      "must_not_include_keys": ["other_project"]
+    },
+    {
+      "name": "abstain_unknown_fact",
+      "query": "ZQXY_NEVER_INGESTED_TOKEN_99",
+      "scope": "org/eval/user/nobody",
+      "limit": 5,
+      "tag": "abstain",
+      "expect_abstain": true
+    },
+    {
+      "name": "multi_hop_placeholder",
+      "query": "who works on the crate that failed NOMI_SCOPE_DENIED_42",
+      "scope": "org/eval/user/alice",
+      "limit": 5,
+      "tag": "multi_hop",
+      "skip_if_no_graph": true
+    }
+  ]
+}

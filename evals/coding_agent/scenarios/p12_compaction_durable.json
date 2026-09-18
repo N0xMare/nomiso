@@ -1,0 +1,32 @@
+{
+  "id": "p12_compaction_durable",
+  "pattern": "p12_compaction",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "Compaction extract keeps the durable line, not the chat. Plane gold is the extracted fact.",
+  "transcript": [
+    {"role": "user", "text": "ok thanks lol also we should snapshot rocks before restore"},
+    {"role": "assistant", "text": "Discarding chatter. Durable: stop writers before just snapshot; do not mix CLI and mcp on the same rocksdb://."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Stop vegapunk CLI/serve/mcp before just snapshot. Do not attach two writers to the same rocksdb:// path.", "category": "procedural"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p12_snapshot_stop",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Stop vegapunk CLI/serve/mcp before just snapshot. Do not attach two writers to the same rocksdb:// path.",
+      "category": "procedural",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p12_exact_snapshot",
+      "query": "just snapshot rocksdb:// writers mcp",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p12_snapshot_stop"]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[package]
+name = "nomiso-memory"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+description = "Reusable agent-memory mechanics on the Nomiso plane (writer ops, recall, packs, sleep, checkpoints)"
+readme = "README.md"
+
+# No backend features: the toolkit never opens a store — the consumer supplies
+# NomisoClient/StoreConfig and selects backends via its own nomiso-store dep.
+
+# Per ARCH-008 / spec 02: the toolkit depends on the lower crates directly,
+# never on the `nomiso` facade (the facade may re-export toolkit components).
+[dependencies]
+nomiso-core = { workspace = true }
+nomiso-service = { workspace = true }
+nomiso-blob = { workspace = true }
+nomiso-schema = { workspace = true }
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+uuid = { workspace = true }
+blake3 = { workspace = true }
+base64 = "0.22"
+
+[dev-dependencies]
+nomiso-store = { workspace = true, features = ["embedded-mem"] }
+tokio = { workspace = true }
+pretty_assertions = { workspace = true }
+tempfile = { workspace = true }

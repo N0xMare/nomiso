@@ -1,0 +1,41 @@
+{
+  "id": "p05_module_auth",
+  "pattern": "p05_module_locality",
+  "scope": "org/eval/coding/nomiso",
+  "origin": "exemplar",
+  "notes": "JWT verification lives in vegapunk-http, not nomiso-store.",
+  "transcript": [
+    {"role": "user", "text": "Where should we verify the Bearer token?"},
+    {"role": "assistant", "text": "bins/vegapunk/src/http.rs only. Never put JWT checks in nomiso-store."}
+  ],
+  "gold_ops": [
+    {"op": "put", "scope": "org/eval/coding/nomiso", "text": "Bearer JWT verification lives in bins/vegapunk/src/http.rs. Do not add JWT checks to crates/nomiso-store.", "category": "semantic"}
+  ],
+  "gold_memories": [
+    {
+      "key": "p05_jwt_http",
+      "scope": "org/eval/coding/nomiso",
+      "text": "Bearer JWT verification lives in bins/vegapunk/src/http.rs. Do not add JWT checks to crates/nomiso-store.",
+      "category": "semantic",
+      "with_embedding": true
+    }
+  ],
+  "probes": [
+    {
+      "name": "p05_exact_jwt_http",
+      "query": "Bearer JWT bins/vegapunk/src/http.rs nomiso-store",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "exact",
+      "expect_keys_in_top": ["p05_jwt_http"]
+    },
+    {
+      "name": "p05_hybrid_jwt_home",
+      "query": "Where is Bearer JWT verification implemented?",
+      "scope": "org/eval/coding/nomiso",
+      "tag": "hybrid",
+      "require_vector": true,
+      "embedding_from": "JWT Bearer token check vegapunk http.rs not nomiso-store",
+      "expect_keys_in_top": ["p05_jwt_http"]
+    }
+  ]
+}
